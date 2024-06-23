@@ -3,6 +3,7 @@ import { Footer, Navbar } from "../components";
 import { useSelector, useDispatch } from "react-redux";
 import { addCart, delCart } from "../redux/action";
 import { Link } from "react-router-dom";
+import { Store } from "react-notifications-component";
 
 const Cart = () => {
   const state = useSelector((state) => state.handleCart);
@@ -24,6 +25,19 @@ const Cart = () => {
   };
 
   const addItem = (product) => {
+    Store.addNotification({
+      title: "Отлично!",
+      message: "Изделение добавлено в корзину",
+      type: "success",
+      insert: "top",
+      container: "top-right",
+      animationIn: ["animate__animated", "animate__fadeIn"],
+      animationOut: ["animate__animated", "animate__fadeOut"],
+      dismiss: {
+        duration: 5000,
+        onScreen: true,
+      },
+    });
     dispatch(addCart(product));
   };
   const removeItem = (product) => {
