@@ -1,0 +1,7 @@
+.shadow-custom {
+    background-color: #00000080;
+}
+
+.card-img-top {
+    object-fit: contain;
+}
