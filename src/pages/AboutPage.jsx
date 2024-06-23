@@ -21,61 +21,17 @@ const AboutPage = () => {
           обезопасить ваш дом или бизнес.
         </p>
 
-        <h2 className="text-center py-4">Другие изделия</h2>
-        <div className="row">
-          <div className="col-md-3 col-sm-6 mb-3 px-3">
-            <div className="card h-100">
-              <img
-                className="card-img-top img-fluid"
-                src="https://images.pexels.com/photos/298863/pexels-photo-298863.jpeg?auto=compress&cs=tinysrgb&w=600"
-                alt=""
-                height={160}
-              />
-              <div className="card-body">
-                <h5 className="card-title text-center">Забор</h5>
-              </div>
-            </div>
-          </div>
-          <div className="col-md-3 col-sm-6 mb-3 px-3">
-            <div className="card h-100">
-              <img
-                className="card-img-top img-fluid"
-                src="https://images.pexels.com/photos/7679720/pexels-photo-7679720.jpeg?auto=compress&cs=tinysrgb&w=600"
-                alt=""
-                height={160}
-              />
-              <div className="card-body">
-                <h5 className="card-title text-center">Туда сюда</h5>
-              </div>
-            </div>
-          </div>
-          <div className="col-md-3 col-sm-6 mb-3 px-3">
-            <div className="card h-100">
-              <img
-                className="card-img-top img-fluid"
-                src="https://images.pexels.com/photos/1927259/pexels-photo-1927259.jpeg?auto=compress&cs=tinysrgb&w=600"
-                alt=""
-                height={160}
-              />
-              <div className="card-body">
-                <h5 className="card-title text-center">Миллионер</h5>
-              </div>
-            </div>
-          </div>
-          <div className="col-md-3 col-sm-6 mb-3 px-3">
-            <div className="card h-100">
-              <img
-                className="card-img-top img-fluid"
-                src="https://images.pexels.com/photos/356056/pexels-photo-356056.jpeg?auto=compress&cs=tinysrgb&w=600"
-                alt=""
-                height={160}
-              />
-              <div className="card-body">
-                <h5 className="card-title text-center">Кек</h5>
-              </div>
-            </div>
-          </div>
-        </div>
+        <hr className="my-4" />
+        <p className="lead text-center">email: hummerstore2024@mail.ru</p>
+        <iframe
+          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2879.5610379517784!2d131.95207847666987!3d43.802720871095325!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x5fb2e8143a88b059%3A0x1b40aecddcc85e1e!2sUlitsa%20Lenina%2C%20136%2C%20Ussuriysk%2C%20Primorskiy%20kray%2C%20692525!5e0!3m2!1sen!2sru!4v1719108554143!5m2!1sen!2sru"
+          width={"100%"}
+          height={450}
+          style={{ border: 0 }}
+          allowFullScreen=""
+          loading="lazy"
+          referrerPolicy="no-referrer-when-downgrade"
+        ></iframe>
       </div>
       <Footer />
     </>

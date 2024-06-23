@@ -130,7 +130,7 @@ const Cart = () => {
                     <ul className="list-group list-group-flush">
                       <li className="list-group-item d-flex justify-content-between align-items-center border-0 px-0 pb-0">
                         Изделий ({totalItems})
-                        <span>${Math.round(subtotal)}</span>
+                        <span>{Math.round(subtotal)} ₽</span>
                       </li>
                       <li className="list-group-item d-flex justify-content-between align-items-center px-0">
                         Перевозка

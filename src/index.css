@@ -5,3 +5,7 @@
 .card-img-top {
     object-fit: contain;
 }
+
+.product-image-layout {
+    object-fit: scale-down;
+}

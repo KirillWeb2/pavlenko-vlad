@@ -31,7 +31,7 @@ const Navbar = () => {
             </li>
             <li className="nav-item">
               <NavLink className="nav-link" to="/product">
-                Товары
+                Изделия
               </NavLink>
             </li>
             <li className="nav-item">
@@ -41,7 +41,7 @@ const Navbar = () => {
             </li>
             <li className="nav-item">
               <NavLink className="nav-link" to="/contact">
-                Контакты
+                Обратная связь
               </NavLink>
             </li>
           </ul>

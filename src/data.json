@@ -8,7 +8,7 @@
     "category": "Беседка",
     "production_time": "от 45 дней",
     "tag": 1,
-    "image": "./assets/products/1-besedka-park-280x210.jpg"
+    "image": "/assets/products/1-besedka-park-280x210.jpg"
   },
   {
     "id": 2,
@@ -19,7 +19,7 @@
     "category": "Беседка",
     "production_time": "от 9 недель",
     "tag": 1,
-    "image": "./assets/products/kovanaya-besedka-modern-373x280.jpg.webp"
+    "image": "/assets/products/kovanaya-besedka-modern-373x280.jpg.webp"
   },
   {
     "id": 3,
@@ -30,7 +30,7 @@
     "category": "Для сада",
     "production_time": "от 1 недели",
     "tag": 1,
-    "image": "./assets/products/1-klumba-kovka-1-373x280.jpg.webp"
+    "image": "/assets/products/1-klumba-kovka-1-373x280.jpg.webp"
   },
   {
     "id": 4,
@@ -41,7 +41,7 @@
     "category": "Для сада",
     "production_time": "от 29 дней",
     "tag": 1,
-    "image": "./assets/products/1-sculpture-kovka-373x280.jpg.webp"
+    "image": "/assets/products/1-sculpture-kovka-373x280.jpg.webp"
   },
   {
     "id": 5,
@@ -52,7 +52,7 @@
     "category": "Для дома",
     "production_time": "от 30 дней",
     "tag": 1,
-    "image": "./assets/products/z-1-373x280.jpg.webp"
+    "image": "/assets/products/z-1-373x280.jpg.webp"
   },
   {
     "id": 6,
@@ -63,7 +63,7 @@
     "category": "Для дома",
     "production_time": "от 30 дней",
     "tag": 1,
-    "image": "./assets/products/z-3-373x280.jpg.webp"
+    "image": "/assets/products/z-3-373x280.jpg.webp"
   },
   {
     "id": 7,
@@ -74,7 +74,7 @@
     "category": "Сувенир",
     "production_time": "от 5 недель",
     "tag": 1,
-    "image": "./assets/products/makeev-5.1-280x210.jpg.webp"
+    "image": "/assets/products/makeev-5.1-280x210.jpg.webp"
   },
   {
     "id": 8,
@@ -85,6 +85,6 @@
     "category": "Сувенир",
     "production_time": "от 5 недель",
     "tag": 1,
-    "image": "./assets/products/prizrak-1-373x280.jpg.webp"
+    "image": "/assets/products/prizrak-1-373x280.jpg.webp"
   }
 ]

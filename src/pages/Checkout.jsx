@@ -1,7 +1,13 @@
-import React from "react";
+import React, { useState } from "react";
 import { Footer, Navbar } from "../components";
-import { useSelector } from "react-redux";
-import { Link } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { Link, useNavigate } from "react-router-dom";
+import { useFormik } from "formik";
+import * as Yup from "yup";
+import axios from "axios";
+import { Store } from "react-notifications-component";
+import { clearCart } from "../redux/action";
+
 const Checkout = () => {
   const state = useSelector((state) => state.handleCart);
 
@@ -21,6 +27,10 @@ const Checkout = () => {
   };
 
   const ShowCheckout = () => {
+    const [isLoading, setIsLoading] = useState(false);
+    const navigate = useNavigate();
+    const dispatch = useDispatch();
+
     let subtotal = 0;
     let shipping = 1000.0;
     let totalItems = 0;
@@ -31,6 +41,77 @@ const Checkout = () => {
     state.map((item) => {
       return (totalItems += item.qty);
     });
+
+    const formik = useFormik({
+      initialValues: {
+        email: "",
+        firstname: "",
+        lastname: "",
+        address: "",
+        card_number: "",
+        card_period: "",
+        card_cvv: "",
+      },
+      validationSchema: Yup.object().shape({
+        email: Yup.string()
+          .email("Неверный формат почты")
+          .required("Обязательное поле!"),
+        firstname: Yup.string().required("Обязательное поле!"),
+        lastname: Yup.string().required("Обязательное поле!"),
+        address: Yup.string().required("Обязательное поле!"),
+        card_number: Yup.string().required("Обязательное поле!"),
+        card_period: Yup.string().required("Обязательное поле!"),
+        card_cvv: Yup.string()
+          .required("Обязательное поле!")
+          .max(3, "Не более 3 символов"),
+      }),
+      onSubmit: async (values) => {
+        try {
+          const {
+            lastname,
+            firstname,
+            email,
+            address,
+            card_number,
+            card_period,
+            card_cvv,
+          } = values;
+          setIsLoading(true);
+          await axios.post("https://pavlenko-server.vercel.app/api/order", {
+            lastname,
+            firstname,
+            email,
+            address,
+            card_number,
+            card_period,
+            card_cvv,
+          });
+
+          formik.resetForm();
+          dispatch(clearCart());
+          Store.addNotification({
+            title: "Отлично!",
+            message: "Заказ создан",
+            type: "success",
+            insert: "top",
+            container: "top-right",
+            animationIn: ["animate__animated", "animate__fadeIn"],
+            animationOut: ["animate__animated", "animate__fadeOut"],
+            dismiss: {
+              duration: 5000,
+              onScreen: true,
+            },
+          });
+          navigate("/");
+        } catch (error) {
+          console.log("ошибка");
+          console.log(error);
+        } finally {
+          setIsLoading(false);
+        }
+      },
+    });
+
     return (
       <>
         <div className="container py-5">
@@ -64,71 +145,97 @@ const Checkout = () => {
             <div className="col-md-7 col-lg-8">
               <div className="card mb-4">
                 <div className="card-header py-3">
-                  <h4 className="mb-0">Адрес доставки</h4>
+                  <h4 className="mb-0">Заполните данные для заказа</h4>
                 </div>
                 <div className="card-body">
-                  <form className="needs-validation" novalidate>
+                  <form onSubmit={formik.handleSubmit} noValidate>
                     <div className="row g-3">
                       <div className="col-sm-6 my-1">
-                        <label for="firstName" className="form-label">
-                          Имя
+                        <label for="firstname" className="form-label">
+                          *Имя
                         </label>
                         <input
                           type="text"
                           className="form-control"
-                          id="firstName"
+                          id="firstname"
                           placeholder="Имя"
-                          required
+                          value={formik.values.firstname}
+                          onChange={formik.handleChange}
                         />
-                        <div className="invalid-feedback">
-                          Введите валидное имя
-                        </div>
+                        {formik.errors.firstname && formik.touched.firstname ? (
+                          <div
+                            style={{ display: "block" }}
+                            className="invalid-feedback"
+                          >
+                            {formik.errors.firstname}
+                          </div>
+                        ) : null}
                       </div>
 
                       <div className="col-sm-6 my-1">
-                        <label for="lastName" className="form-label">
-                          Фамилия
+                        <label for="lastname" className="form-label">
+                          *Фамилия
                         </label>
                         <input
                           type="text"
                           className="form-control"
-                          id="lastName"
+                          id="lastname"
                           placeholder="Фамилия"
-                          required
+                          value={formik.values.lastname}
+                          onChange={formik.handleChange}
                         />
-                        <div className="invalid-feedback">
-                          Введите валидную фамилию
-                        </div>
+                        {formik.errors.lastname && formik.touched.lastname ? (
+                          <div
+                            style={{ display: "block" }}
+                            className="invalid-feedback"
+                          >
+                            {formik.errors.lastname}
+                          </div>
+                        ) : null}
                       </div>
 
                       <div className="col-12 my-1">
                         <label for="email" className="form-label">
-                          Почта
+                          *Почта
                         </label>
                         <input
                           type="email"
                           className="form-control"
                           id="email"
                           placeholder="you@example.com"
-                          required
+                          value={formik.values.email}
+                          onChange={formik.handleChange}
                         />
-                        <div className="invalid-feedback">
-                          Пожалуйста укажите верный почтовый адрес
-                        </div>
+                        {formik.errors.email && formik.touched.email ? (
+                          <div
+                            style={{ display: "block" }}
+                            className="invalid-feedback"
+                          >
+                            {formik.errors.email}
+                          </div>
+                        ) : null}
                       </div>
 
                       <div className="col-12 my-1">
                         <label for="address" className="form-label">
-                          Адрес
+                          *Адрес
                         </label>
                         <input
                           type="text"
                           className="form-control"
                           id="address"
                           placeholder="Приморский Край, г. Уссурийск. ул. Центральная, д. 2"
-                          required
+                          value={formik.values.address}
+                          onChange={formik.handleChange}
                         />
-                        <div className="invalid-feedback">Введите адрес</div>
+                        {formik.errors.address && formik.touched.address ? (
+                          <div
+                            style={{ display: "block" }}
+                            className="invalid-feedback"
+                          >
+                            {formik.errors.address}
+                          </div>
+                        ) : null}
                       </div>
                     </div>
 
@@ -138,53 +245,73 @@ const Checkout = () => {
 
                     <div className="row gy-3">
                       <div className="col-md-6">
-                        <label for="cc-name" className="form-label">
-                          Номер карты
+                        <label for="card_number" className="form-label">
+                          *Номер карты
                         </label>
                         <input
                           type="text"
                           className="form-control"
-                          id="cc-name"
+                          id="card_number"
                           placeholder=""
-                          required
+                          value={formik.values.card_number}
+                          onChange={formik.handleChange}
                         />
                         <small className="text-muted">
                           Полный номер, указанный на карте.
                         </small>
-                        <div className="invalid-feedback">
-                          Номер карты обязателен
-                        </div>
+                        {formik.errors.card_number &&
+                        formik.touched.card_number ? (
+                          <div
+                            style={{ display: "block" }}
+                            className="invalid-feedback"
+                          >
+                            {formik.errors.card_number}
+                          </div>
+                        ) : null}
                       </div>
                       <div className="col-md-3">
-                        <label for="cc-expiration" className="form-label">
-                          Срок действия
+                        <label for="card_period" className="form-label">
+                          *Срок действия
                         </label>
                         <input
                           type="text"
                           className="form-control"
-                          id="cc-expiration"
-                          placeholder=""
-                          required
+                          id="card_period"
+                          placeholder="05/25"
+                          value={formik.values.card_period}
+                          onChange={formik.handleChange}
                         />
-                        <div className="invalid-feedback">
-                          Срок действия обязателен
-                        </div>
+                        {formik.errors.card_period &&
+                        formik.touched.card_period ? (
+                          <div
+                            style={{ display: "block" }}
+                            className="invalid-feedback"
+                          >
+                            {formik.errors.card_period}
+                          </div>
+                        ) : null}
                       </div>
 
                       <div className="col-md-3">
-                        <label for="cc-cvv" className="form-label">
-                          CVV
+                        <label for="card_cvv" className="form-label">
+                          *CVV
                         </label>
                         <input
                           type="text"
                           className="form-control"
-                          id="cc-cvv"
+                          id="card_cvv"
                           placeholder=""
-                          required
+                          value={formik.values.card_cvv}
+                          onChange={formik.handleChange}
                         />
-                        <div className="invalid-feedback">
-                          Код безопасноти обязателен
-                        </div>
+                        {formik.errors.card_cvv && formik.touched.card_cvv ? (
+                          <div
+                            style={{ display: "block" }}
+                            className="invalid-feedback"
+                          >
+                            {formik.errors.card_cvv}
+                          </div>
+                        ) : null}
                       </div>
                     </div>
 
@@ -193,9 +320,9 @@ const Checkout = () => {
                     <button
                       className="w-100 btn btn-primary "
                       type="submit"
-                      disabled
+                      disabled={!formik.isValid || isLoading}
                     >
-                      Перейти к оформлению заказа
+                      {isLoading ? "Загрузка..." : "Оформить"}
                     </button>
                   </form>
                 </div>
